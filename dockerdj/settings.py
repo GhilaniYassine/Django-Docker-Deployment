@@ -14,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # The secret key
-SECRET_KEY = os.environ.get("SECRET_KEY", 'django-insecure-fallback-key-change-in-production')
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or os.environ.get("SECRET_KEY", 'django-insecure-fallback-key-change-in-production')
  
 DEBUG = bool(os.environ.get("DEBUG", default=0))
- 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(",")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
+
 
 
 # Application definition
@@ -65,12 +65,27 @@ WSGI_APPLICATION = 'dockerdj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Get database engine, default to sqlite3
+DATABASE_ENGINE = os.getenv('DATABASE_ENGINE', 'sqlite3')
+
+if DATABASE_ENGINE == 'sqlite3':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': f'django.db.backends.{DATABASE_ENGINE}',
+            'NAME': os.getenv('DATABASE_NAME', 'polls'),
+            'USER': os.getenv('DATABASE_USERNAME', 'myprojectuser'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+            'HOST': os.getenv('DATABASE_HOST', 'db'),
+            'PORT': os.getenv('DATABASE_PORT', 5432),
+        }
+    }
 
 
 # Password validation
