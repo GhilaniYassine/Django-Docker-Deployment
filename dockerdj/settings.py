@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'django-insecure-fallback-key-change-i
  
 DEBUG = bool(os.environ.get("DEBUG", default=0))
  
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(",")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition

@@ -22,9 +22,13 @@ RUN pip install --no-cache-dir -r requirements.txt
  
 # Copy the entire Django project to the container
 COPY . /app/
+
+# Copy and make entrypoint script executable
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
  
 # Expose the Django port
 EXPOSE 8000
  
-# Run Django's development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Use the entrypoint script
+CMD ["./entrypoint.sh"]
