@@ -25,6 +25,7 @@ FROM python:3.13-slim
  
 RUN useradd -m -r appuser && \
    mkdir /app && \
+   mkdir /app/staticfiles && \
    chown -R appuser /app
  
 # Copy the Python dependencies from the builder stage
@@ -36,6 +37,10 @@ WORKDIR /app
  
 # Copy application code
 COPY --chown=appuser:appuser . .
+
+# Copy and make entrypoint script executable
+COPY --chown=appuser:appuser entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
  
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -47,5 +52,5 @@ USER appuser
 # Expose the application port
 EXPOSE 8000 
  
-# Start the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "my_docker_django_app.wsgi:application"]
+# Use the entrypoint script
+CMD ["./entrypoint.sh"]

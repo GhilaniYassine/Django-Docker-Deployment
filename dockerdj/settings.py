@@ -15,10 +15,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # The secret key
 SECRET_KEY = os.environ.get("SECRET_KEY", 'django-insecure-fallback-key-change-in-production')
- 
-DEBUG = bool(os.environ.get("DEBUG", default=0))
- 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(",")
+
+# Parse DEBUG correctly from string env values
+DEBUG = os.getenv("DEBUG", "0").lower() in ("1", "true", "yes", "on")
+
+# Prefer DJANGO_ALLOWED_HOSTS (your .env), fallback to ALLOWED_HOSTS, then default
+ALLOWED_HOSTS = (
+    os.getenv("DJANGO_ALLOWED_HOSTS")
+    or os.getenv("ALLOWED_HOSTS")
+    or "127.0.0.1"
+).split(",")
 
 
 # Application definition
@@ -35,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add whitenoise for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -107,12 +114,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'dockerdj/static') ,
-
+    os.path.join(BASE_DIR, 'dockerdj/static'),
 ]
+
+# Whitenoise configuration for serving static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
