@@ -249,7 +249,10 @@ This solution transforms a manual, error-prone deployment into an automated, rel
 
 2. Run the container:
    ```bash
-docker run -p 8080:8000 djangodocke:latest    ```
+   docker run -p 8000:8000 django-app
+   ```
 
-3. Access the application at `http://localhost:8080`
+3. Access the application at `http://localhost:8000`
 
+
+### docker run -p 8080:8000 djangodocke:latest 
