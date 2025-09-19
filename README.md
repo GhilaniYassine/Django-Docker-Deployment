@@ -75,8 +75,6 @@ RUN pip install --no-cache-dir -r requirements.txt
   - If code changes but requirements don't, this layer is reused
   - Speeds up rebuilds significantly
 - **--no-cache-dir**: Prevents pip from storing download cache
-  - **Benefit**: Reduces image size by ~50-100MB
-  - **Trade-off**: Slightly slower if rebuilding frequently
 
 ### Stage 2: Production Stage
 ```dockerfile
@@ -96,11 +94,9 @@ RUN useradd -m -r appuser && \
 - **useradd -m -r appuser**: Creates system user with home directory
   - **-m**: Creates home directory
   - **-r**: System user (UID < 1000)
-  - **Why**: Security best practice - never run containers as root
 - **mkdir /app/staticfiles**: Pre-creates directory for collected static files
   - **Why**: Ensures directory exists with correct permissions
 - **chown -R appuser /app**: Changes ownership to app user
-  - **Why**: Allows non-root user to write files
 
 ```dockerfile
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
