@@ -93,7 +93,7 @@ RUN useradd -m -r appuser && \
 **Purpose**: Creates secure runtime environment
 - **useradd -m -r appuser**: Creates system user with home directory
   - **-m**: Creates home directory
-  - **-r**: System user (UID < 1000)
+  - **-r**: System user 
 - **mkdir /app/staticfiles**: Pre-creates directory for collected static files
   - **Why**: Ensures directory exists with correct permissions
 - **chown -R appuser /app**: Changes ownership to app user
@@ -150,12 +150,6 @@ CMD ["./entrypoint.sh"]
 
 The `entrypoint.sh` script handles application initialization:
 
-```bash
-#!/bin/bash
-```
-**Purpose**: Specifies shell interpreter
-- **Why bash**: More features than sh, widely available
-- **Security**: Explicit interpreter prevents injection attacks
 
 ```bash
 set -e
@@ -260,8 +254,6 @@ ALLOWED_HOSTS = (
 - **whitenoise==6.6.0**: Static file serving
 - **python-dotenv==1.0.1**: Environment variable loading
 
-### Database Dependencies
-- **psycopg2-binary==2.9.10**: PostgreSQL adapter (ready for production scaling)
 
 ## 🛠️ Build and Run Instructions
 
