@@ -8,7 +8,7 @@ services:
    ports:
      - "5433:5432"
    volumes:
-     - postgres_data_new:/var/lib/postgresql/data
+     - postgres_data_new_1:/var/lib/postgresql/data
    env_file:
      - .env
  
@@ -34,4 +34,4 @@ services:
    env_file:
      - .env
 volumes:
-   postgres_data_new:
+   postgres_data_new_1:
