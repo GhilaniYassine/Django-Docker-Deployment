@@ -1,4 +1,4 @@
-Django Docker Deployment
+## Django Docker Deployment
 
 This GitHub repository contains three complete guides on how to containerize a Django application using Docker.
 Each guide lives in its own branch, showing a different strategy for building and running Django inside containers.
