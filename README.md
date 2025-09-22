@@ -23,7 +23,7 @@ Each guide lives in its own branch, showing a different strategy for building an
    # For Docker Compose approach
    git checkout Docker-Compose
    
-   # For Multi-stage build approachgit rebase --quit
+   # For Multi-stage build 
    git checkout Multi-stage-Build-Docker
    
    # For advanced Dockerfile approach
