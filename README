@@ -1,22 +1,21 @@
-# Django Docker Deployment
+Django Docker Deployment
 
-This repository demonstrates **3 different ways to containerize a Django application** using Docker. Each approach is implemented on a separate branch to help you learn and compare different containerization strategies.
-
+This GitHub repository contains three complete guides on how to containerize a Django application using Docker.
+Each guide lives in its own branch, showing a different strategy for building and running Django inside containers.
 ## 🌟 Repository Structure
 
 | Branch | Approach | Description |
 |--------|----------|-------------|
-| `main` | Basic Docker Setup | Simple Dockerfile with environment variable management |
-| `Creating-Docker-image-from-Dockerfile` | Advanced Dockerfile | Enhanced Dockerfile with optimizations and best practices |
-| `Docker-Compose` | Docker Compose | Multi-service setup with database, Redis, and Django |
-| `Multi-stage-Build-Docker` | Multi-stage Build | Production-optimized build with separate stages |
+| `Creating-Docker-image-from-Dockerfile` | Basic Docker Setup | Build a Django image from a single Dockerfile — covers fundamentals and best practices|
+| `Docker-Compose` | Docker Compose | Full multi-service setup (Django + Database + postgresql) with orchestration using Docker Compose |
+| `Multi-stage-Build-Docker` | Multi-stage Build | Production-optimized image with separate build and runtime stages|
 
 ## 🚀 Quick Start
 
 1. **Clone the repository**:
    ```bash
    git clone <repository-url>
-   cd deploydockerdj
+   cd Django-Docker-Deployment.
    ```
 
 2. **Choose your approach**:
