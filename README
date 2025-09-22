@@ -24,7 +24,7 @@ This repository demonstrates **3 different ways to containerize a Django applica
    # For Docker Compose approach
    git checkout Docker-Compose
    
-   # For Multi-stage build approach
+   # For Multi-stage build approachgit rebase --quit
    git checkout Multi-stage-Build-Docker
    
    # For advanced Dockerfile approach
